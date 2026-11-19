@@ -2,13 +2,16 @@
 #include <iostream>
 #include "models/cpu/cpu.cpp"
 #include "models/ram/ram.cpp"
+#include "models/device/device.cpp"
 
 static inline cpu c;
 static inline ram r;
-
-static std::vector<std::function<std::string()>> arr;
+static inline device d;
 
 enum Config {
+    HostName,
+    SystemVersion,
+    KernelVersion,
     CpuModel,
     CoresCount,
     ThreadCount,
@@ -17,17 +20,26 @@ enum Config {
 
 static std::string PrintFromConfig(const Config cf) {
     switch (cf) {
+        case HostName: {
+            return "Hostname: " + d.GetHostName();
+        }
+        case SystemVersion: {
+            return "System Version: " + d.GetSystemVersion();
+        }
+        case KernelVersion: {
+            return d.GetKernelVersion();
+        }
         case CpuModel: {
-            return c.GetName();
+            return "CPU: " + c.GetName();
         }
         case CoresCount: {
-            return std::to_string(c.GetCoresCount());
+            return "Cores: " + std::to_string(c.GetCoresCount());
         }
         case ThreadCount: {
-            return std::to_string(c.GetThreadCount());
+            return "Threads: " + std::to_string(c.GetThreadCount());
         }
         case Memory: {
-            return std::to_string(r.GetMemory());
+            return "RAM " + std::to_string(r.GetMemory());
         }
 
     }
