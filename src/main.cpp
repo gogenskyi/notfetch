@@ -1,8 +1,8 @@
 #include <functional>
 #include <iostream>
-#include "models/cpu/cpu.cpp"
-#include "models/ram/ram.cpp"
-#include "models/device/device.cpp"
+#include "models/cpu/cpu.h"
+#include "models/ram/ram.h"
+#include "models/device/device.h"
 
 static inline cpu c;
 static inline ram r;
