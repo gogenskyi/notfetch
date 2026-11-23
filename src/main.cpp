@@ -31,7 +31,7 @@ static std::string PrintFromConfig(const config cf) {
             return "Threads: " + std::to_string(c.GetThreadCount());
         }
         case Memory: {
-            return "Memory: " + std::to_string(r.GetMemory()) + "gb";
+            return "Memory: " + std::to_string(r.GetMemory()) + "Gb";
         }
         case Resolution: {
             return "Resolution: " + display_panel.GetResolutionLine();
@@ -45,10 +45,11 @@ static std::string PrintFromConfig(const config cf) {
 }
 
 int main() {
+    std::system("clear");
     for (auto i = 0;i < ascii_logo.size();i++){
         std::println("{}{}", ascii_logo[i],
                      PrintFromConfig(static_cast<config>(i)));
     }
-
+    std::cout<<"\n\n\n\n\n";
     return 0;
 }

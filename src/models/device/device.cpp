@@ -16,6 +16,11 @@ std::string device::GetSystemVersion() {
 }
 std::string device::GetKernelVersion() {
     if (kernel_version.empty())
-        kernel_version = GetStringValue("kern.version");
-    return kernel_version;
+        for (const auto &el : GetStringValue("kern.version")) {
+        if (el != ':') {
+            kernel_version += el;
+            continue;
+        }
+        return kernel_version;
+    }
 }
