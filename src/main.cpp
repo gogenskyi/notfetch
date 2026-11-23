@@ -1,27 +1,19 @@
-#include <functional>
 #include <iostream>
 #include "models/cpu/cpu.h"
 #include "models/ram/ram.h"
 #include "models/device/device.h"
+#include "config.h"
+#include "models/display/display_panel.h"
 
 static inline cpu c;
 static inline ram r;
 static inline device d;
+static inline DisplayPanel display_panel;
 
-enum Config {
-    HostName,
-    SystemVersion,
-    KernelVersion,
-    CpuModel,
-    CoresCount,
-    ThreadCount,
-    Memory,
-};
-
-static std::string PrintFromConfig(const Config cf) {
+static std::string PrintFromConfig(const config cf) {
     switch (cf) {
         case HostName: {
-            return "Hostname: " + d.GetHostName();
+            return d.GetHostName();
         }
         case SystemVersion: {
             return "System Version: " + d.GetSystemVersion();
@@ -39,7 +31,13 @@ static std::string PrintFromConfig(const Config cf) {
             return "Threads: " + std::to_string(c.GetThreadCount());
         }
         case Memory: {
-            return "RAM " + std::to_string(r.GetMemory());
+            return "Memory: " + std::to_string(r.GetMemory()) + "gb";
+        }
+        case Resolution: {
+            return "Resolution: " + display_panel.GetResolutionLine();
+        }
+        case RefreshRate: {
+            return "Refresh Rate: " +  std::to_string(display_panel.GetRefreshRate()) + " Hz";
         }
 
     }
@@ -48,7 +46,8 @@ static std::string PrintFromConfig(const Config cf) {
 
 int main() {
     for (auto i = 0;i < ascii_logo.size();i++){
-        std::cout<<ascii_logo[i]<<PrintFromConfig(static_cast<Config>(i))<<std::endl;
+        std::println("{}{}", ascii_logo[i],
+                     PrintFromConfig(static_cast<config>(i)));
     }
 
     return 0;
