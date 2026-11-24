@@ -23,4 +23,5 @@ std::string device::GetKernelVersion() {
         }
         return kernel_version;
     }
+    return kernel_version;
 }
