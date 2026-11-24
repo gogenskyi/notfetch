@@ -31,7 +31,7 @@ static std::string PrintFromConfig(const config cf) {
             return "Threads: " + std::to_string(c.GetThreadCount());
         }
         case Memory: {
-            return "Memory: " + std::to_string(r.GetMemory()) + "Gb";
+            return "Memory: " + std::to_string(r.GetMemory()) + " GiB";
         }
         case Resolution: {
             return "Resolution: " + display_panel.GetResolutionLine();

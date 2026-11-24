@@ -9,7 +9,9 @@ add_executable(notfetch src/main.cpp
         src/models/ram/ram.cpp
         src/models/device/device.cpp
         src/models/display/display_panel.cpp
-        src/models/display/display_panel.h)
+        src/models/display/display_panel.h
+        src/config/Config.cpp
+        src/config/Config.h)
 
 if(APPLE)
     target_link_libraries(${PROJECT_NAME}
