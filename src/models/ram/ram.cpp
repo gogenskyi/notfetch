@@ -6,6 +6,8 @@
 #include "../model.h"
 
 long ram::GetMemory() {
-    memory = (GetLongValue("hw.memsize_usable") / 1000000000);
+    if (memory == 0) {
+        memory = (GetLongValue("hw.memsize_usable") / 1000000000);
+    }
     return memory;
 }

@@ -8,12 +8,21 @@
 #include <sys/sysctl.h>
 
 static std::string GetStringValue(const std::string &command) {
-    char line[256];
-    size_t size = sizeof(line);
-    if (sysctlbyname(command.c_str(),line,&size,nullptr,0)==0) {
-        return line;
+    size_t size = 0;
+
+    if (sysctlbyname(command.c_str(),nullptr,&size,nullptr,0) != 0) {
+        return {};
     }
-    return {};
+
+    std::string line(size,'\0');
+
+    if (sysctlbyname(command.c_str(),line.data(),&size,nullptr,0) != 0) {
+        return {};
+    }
+    if (!line.empty() && line.back() == '\0') {
+        line.pop_back();
+    }
+    return line;
 }
 
 static int GetIntValue(const std::string &command) {
