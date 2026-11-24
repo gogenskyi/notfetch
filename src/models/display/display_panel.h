@@ -21,13 +21,15 @@ class DisplayPanel {
             return height;
         }
     };
-    int refresh_rate = 0;
-    Resolution resolution_;
     CGDirectDisplayID display_id_;
+    Resolution resolution_;
+    int refresh_rate = 0;
 
 public:
-    DisplayPanel() : resolution_(display_id_), display_id_() {
-        refresh_rate = static_cast<int>(CGDisplayModeGetRefreshRate(CGDisplayCopyDisplayMode(display_id_)));
+    DisplayPanel() : display_id_(), resolution_(display_id_) {
+        const auto mode = CGDisplayCopyDisplayMode(display_id_);
+        refresh_rate = static_cast<int>(CGDisplayModeGetRefreshRate(mode));
+        CGDisplayModeRelease(mode);
     }
 
     std::string GetResolutionLine() const;
