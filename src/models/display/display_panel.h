@@ -26,10 +26,11 @@ class DisplayPanel {
     int refresh_rate = 0;
 
 public:
-    DisplayPanel() : display_id_(), resolution_(display_id_) {
-        const auto mode = CGDisplayCopyDisplayMode(display_id_);
-        refresh_rate = static_cast<int>(CGDisplayModeGetRefreshRate(mode));
-        CGDisplayModeRelease(mode);
+    DisplayPanel() : display_id_(CGMainDisplayID()), resolution_(display_id_) {
+        if (const auto mode = CGDisplayCopyDisplayMode(display_id_)) {
+            refresh_rate = static_cast<int>(CGDisplayModeGetRefreshRate(mode));
+            CGDisplayModeRelease(mode);
+        }
     }
 
     std::string GetResolutionLine() const;
